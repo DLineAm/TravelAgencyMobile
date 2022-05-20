@@ -1,0 +1,208 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:TravelAgencyMobile;assembly=TravelAgencyMobile"
+             x:Class="TravelAgencyMobile.Views.HotelDetailsPage"
+             BackgroundColor="{StaticResource DefaultBackground}"
+             Title="{Binding Hotel.Name}">
+    <ContentPage.Resources>
+        <local:RaitingConverter x:Key="RaitingConverter"></local:RaitingConverter>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ScrollView Margin="0,0,0,0">
+            <StackLayout>
+                <Frame Margin="20,20,20,5"
+                       BackgroundColor="{StaticResource DefaultTabBackground}"
+                       CornerRadius="20">
+                    <StackLayout Padding="0,10,0,0">
+                        <Image Source="hotel.png"
+                               WidthRequest="100"
+                               HeightRequest="100"
+                               HorizontalOptions="Center"></Image>
+                        <Label Text="{Binding Hotel.Name}"
+                               VerticalOptions="Start"
+                               FontSize="27"
+                               FontAttributes="Bold"
+                               TextColor="Black"
+                               HorizontalOptions="Center"
+                               Margin="0,20,0,20" />
+
+                        <Button Grid.Row="1"
+                                Text="Забронировать"
+                                VerticalOptions="End"
+                                CornerRadius="8"
+                                BackgroundColor="#9ebcff"
+                                Clicked="OnAddVoucherButton_Clicked"></Button>
+                    </StackLayout>
+                </Frame>
+                <Frame BackgroundColor="{StaticResource DefaultTabBackground}"
+                       CornerRadius="20"
+                       Margin="20,20, 20, 5">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <ScrollView>
+                            <StackLayout Margin="10"
+                                         Padding="0,0,0,40">
+                                <Label TextColor="Black"
+                                       FontAttributes="Bold"
+                                       Text="Описание"
+                                       FontSize="27"
+                                       Margin="0,20,0,0"></Label>
+                                <Label Text="В апартаментах есть 1 спальня, телевизор с плоским экраном и кабельными каналами, оборудованная кухня с микроволновой печью и холодильником, стиральная машина и 1 ванная комната с ванной или душем."
+                                       TextColor="Black"
+                                       Margin="0,20,0,0"
+                                       FontSize="18"
+                                       LineHeight="1.6"></Label>
+                            </StackLayout>
+                        </ScrollView>
+                    </Grid>
+                </Frame>
+                <Frame CornerRadius="20"
+                       Margin="20,20, 20, 5"
+                       BackgroundColor="{StaticResource DefaultTabBackground}">
+                    <StackLayout Padding="20,10,10,40">
+                        <Label TextColor="Black"
+                               FontAttributes="Bold"
+                               Text="Информация"
+                               FontSize="27"
+                               Margin="0,20,0,0"></Label>
+                        <Label TextColor="Black"
+                               FontSize="18"
+                               Margin="0,20,0,0">
+                            <Label.Text>
+                                <Binding Path="Hotel.Country"
+                                         StringFormat="{}Страна: {0}"></Binding>
+                            </Label.Text>
+                        </Label>
+                        <Label TextColor="Black"
+                               FontSize="18"
+                               Margin="0,10,0,0">
+                            <Label.Text>
+                                <Binding Path="Hotel.City"
+                                         StringFormat="{}Город: {0}"></Binding>
+                            </Label.Text>
+                        </Label>
+                        <Label TextColor="Black"
+                               FontSize="18"
+                               Margin="0,10,0,0">
+                            <Label.Text>
+                                <Binding Path="Hotel.Address"
+                                         StringFormat="{}Адрес: {0}"></Binding>
+                            </Label.Text>
+                        </Label>
+                        <Label TextColor="Black"
+                               FontSize="18"
+                               Margin="0,10,0,0">
+                            <Label.Text>
+                                <Binding Path="Hotel.Phone"
+                                         StringFormat="{}Телефон: {0}"></Binding>
+                            </Label.Text>
+                        </Label>
+
+                        <StackLayout Orientation="Horizontal"
+                                     Margin="0,20,0,0">
+                            <Image Source="parking.png"
+                                   HeightRequest="20"
+                                   WidthRequest="20"></Image>
+                            <Label Text="Бесплатная парковка на территории"
+                                   TextColor="Black"
+                                   FontSize="18"></Label>
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal">
+                            <Image Source="map.png"
+                                   HeightRequest="20"
+                                   WidthRequest="20"></Image>
+                            <Label Text="Отличное расположение"
+                                   TextColor="Black"
+                                   FontSize="18"></Label>
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal">
+                            <Image Source="wifi.png"
+                                   HeightRequest="20"
+                                   WidthRequest="20"></Image>
+                            <Label Text="Бесплатный Wi-Fi"
+                                   TextColor="Black"
+                                   FontSize="18"></Label>
+                        </StackLayout>
+
+                    </StackLayout>
+                </Frame>
+
+                <Frame BackgroundColor="{StaticResource DefaultTabBackground}"
+                       CornerRadius="20"
+                       Margin="20,20, 20, 20"
+                >
+                    <StackLayout Padding="20,10,10,40">
+                        <StackLayout Margin="0,0,0,0">
+                            <Label TextColor="Black"
+                                   FontAttributes="Bold"
+                                   Text="Отзывы гостей"
+                                   FontSize="27"
+                                   Margin="0,20,0,0"></Label>
+                            <Label TextColor="Black"
+                                   FontSize="18"
+                                   Margin="0,20,0,0">
+                                <Label.Text>
+                                    <Binding Source="{x:Reference PersonalBar}"
+                                             Path="Progress"
+                                             StringFormat="{}Персонал (★ {0})"
+                                             Converter="{StaticResource RaitingConverter}"></Binding>
+                                </Label.Text>
+                            </Label>
+                            <ProgressBar Progress="0.98"
+                                         ProgressColor="{StaticResource DefaultPrimaryColor}"
+                                         x:Name="PersonalBar"></ProgressBar>
+
+                            <Label TextColor="Black"
+                                   FontSize="18"
+                                   Margin="0,10,0,0">
+                                <Label.Text>
+                                    <Binding Source="{x:Reference ComfortBar}"
+                                             Path="Progress"
+                                             StringFormat="{}Комфорт (★ {0})"
+                                             Converter="{StaticResource RaitingConverter}"></Binding>
+                                </Label.Text>
+                            </Label>
+                            <ProgressBar Progress="0.95"
+                                         ProgressColor="{StaticResource DefaultPrimaryColor}"
+                                         x:Name="ComfortBar"></ProgressBar>
+
+                            <Label TextColor="Black"
+                                   FontSize="18"
+                                   Margin="0,10,0,0">
+                                <Label.Text>
+                                    <Binding Source="{x:Reference FacilitiesBar}"
+                                             Path="Progress"
+                                             StringFormat="{}Удобства (★ {0})"
+                                             Converter="{StaticResource RaitingConverter}"></Binding>
+                                </Label.Text>
+                            </Label>
+                            <ProgressBar Progress="0.97"
+                                         ProgressColor="{StaticResource DefaultPrimaryColor}"
+                                         x:Name="FacilitiesBar"></ProgressBar>
+
+                            <Label TextColor="Black"
+                                   FontSize="18"
+                                   Margin="0,10,0,0">
+                                <Label.Text>
+                                    <Binding Source="{x:Reference PurityBar}"
+                                             Path="Progress"
+                                             StringFormat="{}Чистота (★ {0})"
+                                             Converter="{StaticResource RaitingConverter}"></Binding>
+                                </Label.Text>
+                            </Label>
+                            <ProgressBar Progress="0.99"
+                                         ProgressColor="{StaticResource DefaultPrimaryColor}"
+                                         x:Name="PurityBar"></ProgressBar>
+                        </StackLayout>
+                    </StackLayout>
+                </Frame>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

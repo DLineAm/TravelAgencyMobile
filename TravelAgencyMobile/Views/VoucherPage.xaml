@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:forms="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
+             x:Class="TravelAgencyMobile.Views.VoucherPage"
+             Title="Заявка"
+             BackgroundColor="{StaticResource DefaultBackground}">
+    <ContentPage.Content>
+        <ScrollView>
+        <Grid>
+
+            <Grid HorizontalOptions="CenterAndExpand"
+                         VerticalOptions="FillAndExpand"
+                         Opacity="1"
+                         BackgroundColor="White">
+                <StackLayout VerticalOptions="Center">
+                    <forms:AnimationView
+                        Animation="checked_animation.json"
+                        AutoPlay="False"
+                        x:Name="AnimationView"
+                        WidthRequest="140"
+                        Speed="1.3"
+                        HeightRequest="140"
+                        Margin="0,-100,0,0">
+                    </forms:AnimationView>
+                    <StackLayout x:Name="SuccessTextLayout">
+                        <Label Text="Успех!"
+                               FontSize="27"
+                               FontAttributes="Bold"
+                               HorizontalTextAlignment="Center"></Label>
+                        <Label Text="Заявка была создана, список заявок можно посмотреть во вкладдке «Заявки»"
+                               FontSize="18"
+                               HorizontalTextAlignment="Center"
+                               Margin="0,20,0,0"></Label>
+                    </StackLayout>
+                </StackLayout>
+                
+            </Grid>
+
+            <StackLayout Padding="20"
+                         x:Name="SuccessStackLayout"
+                         BackgroundColor="{StaticResource DefaultBackground}">
+                <Frame CornerRadius="20"
+                       BackgroundColor="{StaticResource DefaultTabBackground}">
+                    <StackLayout Padding="0,0,0,20">
+                        <Label TextColor="Black"
+                               Text="Отель"
+                               FontSize="27"
+                               FontAttributes="Bold"></Label>
+                        <StackLayout Orientation="Horizontal"
+                                     Padding="0,20,0,10"
+                                     HorizontalOptions="Start">
+                            <Image Source="hotel.png"
+                                   HeightRequest="60"></Image>
+                            <StackLayout Margin="10,0,0,0">
+                                <Label Text="{Binding Hotel.Name}"
+                                       FontSize="27"></Label>
+                                <Label Text="{Binding Hotel.Address}"
+                                       FontSize="18"></Label>
+                            </StackLayout>
+                        </StackLayout>
+                    </StackLayout>
+                </Frame>
+
+                <Frame CornerRadius="20"
+                       Margin="0,20,0,0"
+                       BackgroundColor="{StaticResource DefaultTabBackground}">
+                    <StackLayout Padding="0,0,0,20">
+                        <Label TextColor="Black"
+                               Text="Дата вылета и прилета"
+                               FontSize="27"
+                               FontAttributes="Bold"></Label>
+                        <StackLayout Orientation="Horizontal"
+                                     Margin="0,20,0,10"
+                                     HorizontalOptions="Start">
+                            <Image Source="calendar.png"
+                                   HeightRequest="30"
+                                   Margin="0,0,0,-10"></Image>
+                            <StackLayout>
+                                <DatePicker TextColor="Black"
+                                            FontSize="18"
+                                            Date="{Binding DateStart}"
+                                            WidthRequest="100"></DatePicker>
+                                <Path Data="M0,0 L85,0"
+                                      Margin="2,-15,0,0"
+                                      Stroke="#9ebcff"
+                                      StrokeThickness="3"></Path>
+                            </StackLayout>
+                            <Path Data="M 0,0 L 20,0"
+                                  Margin="-15,23,0,0"
+                                  Stroke="#9ebcff"
+                                  StrokeThickness="4"
+                                  HorizontalOptions="Center"></Path>
+                            <Image Source="calendar.png"
+                                   HeightRequest="30"
+                                   Margin="0,0,0,-10"></Image>
+                            <StackLayout>
+                                <DatePicker TextColor="Black"
+                                            FontSize="18"
+                                            Date="{Binding DateFinish}"
+                                            WidthRequest="100"></DatePicker>
+                                <Path Data="M0,0 L85,0"
+                                      Margin="2,-15,0,0"
+                                      Stroke="#9ebcff"
+                                      StrokeThickness="3"></Path>
+                            </StackLayout>
+                        </StackLayout>
+                    </StackLayout>
+                </Frame>
+
+                <Frame CornerRadius="20"
+                       Margin="0,20,0,0"
+                       BackgroundColor="{StaticResource DefaultTabBackground}">
+                    <StackLayout Padding="0,0,0,20">
+                        <Label TextColor="Black"
+                               Text="Вид отдыха"
+                               FontSize="27"
+                               FontAttributes="Bold"></Label>
+
+                        <Picker Title="Вид отдыха"
+                                ItemsSource="{Binding RestTypes}"
+                                ItemDisplayBinding="{Binding Name}"
+                                SelectedItem="{Binding RestType}"
+                                FontSize="18"
+                                TextColor="Black"
+                                TitleColor="Black"
+                                Margin="0,20,0,10">
+                        </Picker>
+                    </StackLayout>
+                </Frame>
+
+                <Button Text="Оформить заявку"
+                        CornerRadius="8"
+                        Margin="0,20,0,0"
+                        Clicked="Button_OnClicked">
+                        </Button>
+                    </StackLayout>
+            
+        </Grid>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

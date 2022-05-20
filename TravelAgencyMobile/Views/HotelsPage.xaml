@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:c="clr-namespace:HorizontalListView.CustomControls"
+             xmlns:v="clr-namespace:TravelAgencyMobile.Views"
+             xmlns:controls="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
+             xmlns:renderers="clr-namespace:App3.Droid.Renderers;assembly=TravelAgencyMobile"
+             xmlns:forms="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
+             x:Class="TravelAgencyMobile.Views.HotelsPage"
+             Title="Отели"
+             BackgroundColor="{StaticResource DefaultBackground}">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+
+            <StackLayout>
+                <Frame BackgroundColor="{StaticResource DefaultTabBackground}"
+                       CornerRadius="10"
+                       Margin="20,20,20,5">
+                    <Entry Margin="0,-20,0,-20"
+                           Placeholder="Поиск"
+                           PlaceholderColor="Gray"
+                           Text="{Binding SearchData}"
+                           TextColor="Black"
+                           FontSize="18">
+
+                    </Entry>
+                </Frame>
+                <Frame Margin="20,20,20,0"
+                       CornerRadius="10"
+                       BackgroundColor="{StaticResource DefaultTabBackground}">
+                    <Grid>
+
+                        <StackLayout Margin="20,0"
+                                     Padding="-18,-8,-18,-8">
+                            <Label TextColor="Black"
+                                   FontSize="27"
+                                   Text="Фильтры"
+                                   FontAttributes="Bold"></Label>
+                            <StackLayout Orientation="Horizontal">
+                                <Picker Title="Страна"
+                                        ItemsSource="{Binding Countries}"
+                                        SelectedItem="{Binding CountryFilter}"
+                                        SelectedIndex="0"
+                                        FontSize="18"
+                                        TextColor="Black"
+                                        WidthRequest="120"
+                                        TitleColor="Black"></Picker>
+                                <Picker Title="Город"
+                                        ItemsSource="{Binding Cities}"
+                                        SelectedItem="{Binding CityFilter}"
+                                        SelectedIndex="0"
+                                        FontSize="18"
+                                        TextColor="Black"
+                                        TitleColor="Black"
+                                        WidthRequest="150"></Picker>
+
+                            </StackLayout>
+                        </StackLayout>
+                        <forms:AnimationView HorizontalOptions="End"
+                                             WidthRequest="30"
+                                             HeightRequest="30"
+                                             VerticalOptions="End"
+                                             Animation="sort_animation.json"
+                                             x:Name="AnimationView"
+                                             AutoPlay="False"></forms:AnimationView>
+                        <Button HorizontalOptions="End"
+                                WidthRequest="40"
+                                HeightRequest="40"
+                                VerticalOptions="End"
+                                BackgroundColor="Transparent"
+                                Clicked="OnSortButtonClicked"></Button>
+                    </Grid>
+                </Frame>
+            </StackLayout>
+
+            <ScrollView Grid.Row="1"
+                        Margin="10,-5,10,-5">
+                <FlexLayout BindableLayout.ItemsSource="{Binding Hotels}"
+                            Wrap="Wrap"
+                            JustifyContent="Start"
+                            AlignItems="Start">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <Frame CornerRadius="10"
+                                   HasShadow="True"
+                                   Margin="10,30,10,10"
+                                   FlexLayout.Basis="50%"
+                                   BackgroundColor="{StaticResource DefaultTabBackground}">
+                                <Frame.Effects>
+                                    <renderers:FocusEffect></renderers:FocusEffect>
+                                </Frame.Effects>
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer CommandParameter="{Binding}"
+                                                          Tapped="TapGestureRecognizer_OnTapped"></TapGestureRecognizer>
+                                </Frame.GestureRecognizers>
+                                <StackLayout Padding="0,0,0,-10">
+                                    <StackLayout>
+                                        <Image Source="hotel.png"
+                                               HeightRequest="50"
+                                               WidthRequest="50" />
+                                        <Label Text="{Binding Name}"
+                                               FontSize="27"
+                                               FontAttributes="Bold"
+                                               TextColor="Black"
+                                               HorizontalOptions="Center"></Label>
+                                    </StackLayout>
+
+                                    <StackLayout>
+
+                                    <Label FontSize="18"
+                                               TextColor="Black"
+                                               Margin="0,10,0,0"
+                                               LineBreakMode="TailTruncation">
+                                            <Label.Text>
+                                                <MultiBinding StringFormat="{}{0}, г.{1}">
+                                                    <Binding Path="Country"></Binding>
+                                                    <Binding Path="City"></Binding>
+                                                </MultiBinding>
+                                            </Label.Text>
+                                        </Label>
+                                        <Label TextColor="Black"
+                                               FontSize="18"
+                                               LineBreakMode="TailTruncation"
+                                               Text="{Binding Address}">
+                                        </Label>
+
+                                    </StackLayout>
+
+                                    <StackLayout Orientation="Horizontal"
+                                                 Margin="0,5,0,0"
+                                                 VerticalOptions="End">
+                                        <Image Source="phone.png"
+                                               HeightRequest="27"
+                                               WidthRequest="27"></Image>
+                                        <Label Text="{Binding Phone}"
+                                               FontSize="18"
+                                               TextColor="Black"
+                                               HeightRequest="40"
+                                               VerticalTextAlignment="Center"
+                                               Margin="-2,0,0,0"></Label>
+                                    </StackLayout>
+
+                                </StackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </FlexLayout>
+            </ScrollView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
